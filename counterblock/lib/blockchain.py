@@ -44,10 +44,11 @@ def get_btc_supply(normalize=False, at_block_index=None):
     blocks_remaining = block_count
     total_supply = 0
     reward = 50.0
+    halving_block = 1051200
     while blocks_remaining > 0:
-        if blocks_remaining >= 210000:
-            blocks_remaining -= 210000
-            total_supply += 210000 * reward
+        if blocks_remaining >= halving_block:
+            blocks_remaining -= halving_block
+            total_supply += halving_block * reward
             reward /= 2
         else:
             total_supply += (blocks_remaining * reward)
@@ -60,7 +61,7 @@ def pubkey_to_address(pubkey_hex):
     sec = binascii.unhexlify(pubkey_hex)
     compressed = encoding.is_sec_compressed(sec)
     public_pair = encoding.sec_to_public_pair(sec)
-    address_prefix = b'\x6f' if config.TESTNET else b'\x00'
+    address_prefix = b'\x6f' if config.TESTNET else b'\x32'
     return encoding.public_pair_to_bitcoin_address(public_pair, compressed=compressed, address_prefix=address_prefix)
 
 
