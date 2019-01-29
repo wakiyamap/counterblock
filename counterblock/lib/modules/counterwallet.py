@@ -577,7 +577,7 @@ def init():
     logger.debug("cw_last_message_seq: {}".format(config.state['cw_last_message_seq']))
 
     # init GEOIP
-    import pygeoip
+    import geoip2.database
     geoip_data_path = os.path.join(config.data_dir, 'GeoLite2-Country.mmdb')
 
 
